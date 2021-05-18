@@ -1,0 +1,113 @@
+{
+  "name": "gulp-boilerplate",
+  "version": "1.0.0",
+  "description": "SoveTit RU",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
+    "browser-sync": "^2.26.7",
+    "core-js": "^3.2.1",
+    "cssnano": "^4.1.10",
+    "eslint": "^6.5.1",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-babel": "^8.0.0",
+    "gulp-cache": "^1.1.3",
+    "gulp-concat": "^2.6.1",
+    "gulp-embed-svg": "^1.1.5",
+    "gulp-flatten": "^0.4.0",
+    "gulp-group-css-media-queries": "^1.2.2",
+    "gulp-imagemin": "^6.1.1",
+    "gulp-notify": "^3.2.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-postcss": "^8.0.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.1.0",
+    "gulp-sass-glob": "^1.1.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify": "^3.0.2",
+    "gulp-util": "^3.0.8",
+    "postcss-pxtorem": "^4.0.1",
+    "standard-version": "^7.0.0"
+  },
+  "browserslist": [
+    "defaults",
+    "not IE 11",
+    "maintained node versions"
+  ],
+  "dependencies": {
+    "@babel/register": "^7.6.2"
+  },
+  "scripts": {
+    "prod": "gulp prod",
+    "release": "standard-version",
+    "release dry-run": "standard-version --dry-run"
+  },
+  "standard-version": {
+    "types": [
+      {
+        "type": "feat",
+        "section": "Features"
+      },
+      {
+        "type": "fix",
+        "section": "Bug Fixes"
+      },
+      {
+        "type": "chore",
+        "section": "Automation",
+        "hidden": false
+      },
+      {
+        "type": "docs",
+        "section": "Documentation",
+        "hidden": false
+      },
+      {
+        "type": "style",
+        "section": "Code style",
+        "hidden": false
+      },
+      {
+        "type": "refactor",
+        "section": "Refactoring",
+        "hidden": false
+      },
+      {
+        "type": "perf",
+        "section": "Performance",
+        "hidden": false
+      },
+      {
+        "type": "test",
+        "section": "Unit tests",
+        "hidden": false
+      },
+      {
+        "type": "ci",
+        "section": "Continuous integration",
+        "hidden": false
+      }
+    ],
+    "scripts": {
+      "postchangelog": "replace '/* #' ' ' CHANGELOG.md"
+    }
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "useBuiltIns": "entry",
+          "corejs": 3
+        }
+      ]
+    ]
+  },
+  "author": "SoveTit RU",
+  "bugs": {
+    "url": "https://sovetit.ru"
+  },
+  "homepage": "https://sovetit.ru"
+}
