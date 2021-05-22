@@ -1,7 +1,7 @@
 export const paths = {
 	settings: {
 		domain: 'site.test',
-		watch: '../*.php'
+		watch: '../**/*.php'
 	},
 	images: {
 		src: 'src/assets/images/**',
