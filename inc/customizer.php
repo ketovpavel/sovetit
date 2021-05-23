@@ -1,5 +1,8 @@
 <?php
 /**
+ * Theme Options – The Customize API
+ * @link https://developer.wordpress.org/themes/customize-api/
+ *
  * @see sovetit_customize_register
  *
  * @param WP_Customize_Manager $wp_customize Theme Customizer object.
