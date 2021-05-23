@@ -15,14 +15,14 @@ function sovetit_customize_register( $wp_customize ) {
 
 	if ( isset( $wp_customize->selective_refresh ) ) {
 
-		$wp_customize->selective_refresh->add_partial( 'header-text-button', array(
+		$wp_customize->selective_refresh->add_partial( 'header_text_button', array(
 			'selector'        => '.get-header a',
-			'render_callback' => 'sovetit_header_customize_text_button',
+			'render_callback' => 'sovetit_customize_header_text_button',
 		) );
 
-		$wp_customize->selective_refresh->add_partial( 'footer-text-button', array(
+		$wp_customize->selective_refresh->add_partial( 'footer_text_button', array(
 			'selector'        => '.get-footer a',
-			'render_callback' => 'sovetit_footer_customize_text_button',
+			'render_callback' => 'sovetit_customize_footer_text_button',
 		) );
 
 		/* Settings Header */
@@ -34,8 +34,8 @@ function sovetit_customize_register( $wp_customize ) {
 			)
 		);
 
-		$wp_customize->add_setting('header-text-button',
-			[ 'default' => sovetit_get_theme_text_default( 'header-text-button' ) ]
+		$wp_customize->add_setting('header_text_button',
+			[ 'default' => sovetit_get_theme_text_default( 'header_text_button' ) ]
 		)->transport = 'postMessage';
 		$wp_customize->add_control(
 			'header-text-button',
@@ -55,8 +55,8 @@ function sovetit_customize_register( $wp_customize ) {
 			)
 		);
 
-		$wp_customize->add_setting('footer-text-button',
-			[ 'default' => sovetit_get_theme_text_default( 'footer-text-button' ) ]
+		$wp_customize->add_setting('footer_text_button',
+			[ 'default' => sovetit_get_theme_text_default( 'footer_text_button' ) ]
 		)->transport = 'postMessage';
 		$wp_customize->add_control(
 			'footer-text-button',
@@ -71,23 +71,9 @@ function sovetit_customize_register( $wp_customize ) {
 }
 add_action( 'customize_register', 'sovetit_customize_register' );
 
-function sovetit_header_customize_text_button() {
-	return get_theme_mod('header-text-button');
+function sovetit_customize_header_text_button() {
+	return get_theme_mod('header_text_button');
 }
-function sovetit_footer_customize_text_button() {
-	return get_theme_mod('footer-text-button');
+function sovetit_customize_footer_text_button() {
+	return get_theme_mod('footer_text_button');
 }
-
-/**
- * Binds JS handlers to make Theme Customizer preview reload changes asynchronously.
- *
- * @see sovetit_customize_preview_js
- *
- * @author Pavel Ketov <pavel@sovetit.ru>
- * @copyright Copyright (c) 2021, SoveTit RU
- * Date: 16.05.2021
- */
-function sovetit_customize_preview_js() {
-	wp_enqueue_script( THEME_DOMAIN . '-customizer', get_template_directory_uri() . '/inc/admin/js/customizer.js', array( 'customize-preview' ), THEME_VERSION, true );
-}
-add_action( 'customize_preview_init', 'sovetit_customize_preview_js' );

@@ -142,7 +142,7 @@ add_action( 'after_setup_theme', 'sovetit_content_width', 0 );
  * Date: 16.05.2021
  */
 function sovetit_enqueue_scripts() {
-	
+
 	wp_enqueue_style( THEME_DOMAIN . '-main', get_template_directory_uri() . '/assets/css/style.min.css', [], THEME_VERSION );
 	wp_enqueue_style( THEME_DOMAIN . '-style', get_stylesheet_uri(), [], THEME_VERSION );
 
@@ -195,6 +195,55 @@ require THEME_DIR . '/inc/customizer.php';
 if ( defined( 'JETPACK__VERSION' ) ) {
 	require THEME_DIR . '/inc/jetpack.php';
 }
+
+/**
+ * @see sovetit_customize_preview_init
+ * @author Pavel Ketov <pavel@sovetit.ru>
+ * @copyright Copyright (c) 2021, SoveTit RU
+ * Date: 23.05.2021
+ */
+function sovetit_customize_preview_init() {
+
+	wp_enqueue_style(
+		THEME_DOMAIN . '-customize',
+		get_template_directory_uri() . '/inc/admin/css/customizer.css',
+		[ 'customize-preview' ],
+		THEME_VERSION
+	);
+
+	wp_enqueue_script(
+		THEME_DOMAIN . '-customizer',
+		get_template_directory_uri() . '/inc/admin/js/customize.js',
+		[ 'customize-preview' ],
+		THEME_VERSION
+	);
+
+}
+add_action( 'customize_preview_init', 'sovetit_customize_preview_init' );
+
+/**
+ * @see sovetit_customize_admin_init
+ * @author Pavel Ketov <pavel@sovetit.ru>
+ * @copyright Copyright (c) 2021, SoveTit RU
+ * Date: 24.05.2021
+ */
+function sovetit_customize_admin_init() {
+
+	wp_enqueue_style(
+		THEME_DOMAIN . '-admin',
+		get_template_directory_uri() . '/inc/admin/css/style.css',
+		[],
+		THEME_VERSION
+	);
+
+	wp_enqueue_script(
+		THEME_DOMAIN . '-admin',
+		get_template_directory_uri() . '/inc/admin/js/script.js',
+		[],
+		THEME_VERSION
+	);
+}
+add_action( 'admin_enqueue_scripts', 'sovetit_customize_admin_init' );
 
 /**
  * Displaying an array in a readable form

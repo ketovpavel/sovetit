@@ -13,7 +13,7 @@
  */
 function sovetit_get_theme_text_default( $name ) {
 	switch ( $name ) {
-		case 'home-screen-title' :
+		case 'home_text_button' :
 			$default = 'Designed to be timeless';
 			break;
 		default : $default = null;
