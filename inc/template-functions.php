@@ -34,7 +34,7 @@ function sovetit_get_home_screen_settings( $name ) {
 	echo empty( get_theme_mod( $name ) ) ? sovetit_get_theme_text_default( $name ) : get_theme_mod( $name );
 }
 
-if ( ! function_exists( 'sovetit_posted_on' ) ) :
+if ( ! function_exists( 'sovetit_posted_on' ) ) {
 	/**
 	 * Prints HTML with meta information for the current post-date/time.
 	 */
@@ -61,9 +61,9 @@ if ( ! function_exists( 'sovetit_posted_on' ) ) :
 		echo '<span class="posted-on">' . $posted_on . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 	}
-endif;
+}
 
-if ( ! function_exists( 'sovetit_posted_by' ) ) :
+if ( ! function_exists( 'sovetit_posted_by' ) ) {
 	/**
 	 * Prints HTML with meta information for the current author.
 	 */
@@ -77,9 +77,9 @@ if ( ! function_exists( 'sovetit_posted_by' ) ) :
 		echo '<span class="byline"> ' . $byline . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 	}
-endif;
+}
 
-if ( ! function_exists( 'sovetit_entry_footer' ) ) :
+if ( ! function_exists( 'sovetit_entry_footer' ) ) {
 	/**
 	 * Prints HTML with meta information for the categories, tags and comments.
 	 */
@@ -108,11 +108,11 @@ if ( ! function_exists( 'sovetit_entry_footer' ) ) :
 					wp_kses(
 					/* translators: %s: post title */
 						__( 'Leave a Comment<span class="screen-reader-text"> on %s</span>', THEME_DOMAIN ),
-						array(
-							'span' => array(
-								'class' => array(),
-							),
-						)
+						[
+							'span' => [
+								'class' => [],
+							],
+						]
 					),
 					wp_kses_post( get_the_title() )
 				)
@@ -125,11 +125,11 @@ if ( ! function_exists( 'sovetit_entry_footer' ) ) :
 				wp_kses(
 				/* translators: %s: Name of current post. Only visible to screen readers */
 					__( 'Edit <span class="screen-reader-text">%s</span>', THEME_DOMAIN ),
-					array(
-						'span' => array(
-							'class' => array(),
-						),
-					)
+					[
+						'span' => [
+							'class' => [],
+						],
+					]
 				),
 				wp_kses_post( get_the_title() )
 			),
@@ -137,9 +137,9 @@ if ( ! function_exists( 'sovetit_entry_footer' ) ) :
 			'</span>'
 		);
 	}
-endif;
+}
 
-if ( ! function_exists( 'sovetit_post_thumbnail' ) ) :
+if ( ! function_exists( 'sovetit_post_thumbnail' ) ) {
 	/**
 	 * Displays an optional post thumbnail.
 	 *
@@ -164,13 +164,13 @@ if ( ! function_exists( 'sovetit_post_thumbnail' ) ) :
 				<?php
 				the_post_thumbnail(
 					'post-thumbnail',
-					array(
+					[
 						'alt' => the_title_attribute(
-							array(
+							[
 								'echo' => false,
-							)
+							]
 						),
-					)
+					]
 				);
 				?>
 			</a>
@@ -178,9 +178,9 @@ if ( ! function_exists( 'sovetit_post_thumbnail' ) ) :
 		<?php
 		endif; // End is_singular().
 	}
-endif;
+}
 
-if ( ! function_exists( 'wp_body_open' ) ) :
+if ( ! function_exists( 'wp_body_open' ) ) {
 	/**
 	 * Shim for sites older than 5.2.
 	 *
@@ -189,4 +189,60 @@ if ( ! function_exists( 'wp_body_open' ) ) :
 	function wp_body_open() {
 		do_action( 'wp_body_open' );
 	}
-endif;
+}
+
+/**
+ * Получаем массив (список созданных форм Contact Form 7)
+ *
+ * @see sovetit_get_cf7_list
+ * @return array|bool
+ * @copyright Copyright (c) 2021, SoveTit RU
+ * Date: 26.05.2021
+ * @author Pavel Ketov <pavel@sovetit.ru>
+ */
+function sovetit_get_cf7_list() {
+
+	$wpcf7 = get_posts([
+		'post_type'         => 'wpcf7_contact_form',
+		'posts_per_page'	=> -1,
+		'orderby'           => 'ID',
+		'order'             => 'ASC',
+	]);
+
+	if ( empty( $wpcf7 ) ) return false;
+
+	$title = [ 0 => __( '&mdash; Select &mdash;' ) ];
+
+	foreach ( $wpcf7 as $item ) {
+
+		unset(
+			$item->post_author,
+			$item->post_date,
+			$item->post_date_gmt,
+			$item->post_content,
+			$item->post_excerpt,
+			$item->post_status,
+			$item->comment_status,
+			$item->ping_status,
+			$item->post_password,
+			$item->post_name,
+			$item->to_ping,
+			$item->pinged,
+			$item->post_modified,
+			$item->post_modified_gmt,
+			$item->post_content_filtered,
+			$item->post_parent,
+			$item->guid,
+			$item->menu_order,
+			$item->post_type,
+			$item->post_mime_type,
+			$item->comment_count,
+			$item->filter,
+		);
+
+		$title[$item->ID] .= $item->post_title;
+
+	}
+
+	return $title;
+}
