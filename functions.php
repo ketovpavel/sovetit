@@ -37,7 +37,7 @@ if ( ! function_exists( 'sovetit_setup' ) ) {
 		register_nav_menus(
 			array(
 				'primary' => esc_html__( 'Primary menu', THEME_DOMAIN ),
-				'footer'  => __( 'Secondary menu', THEME_DOMAIN ),
+				'footer'  => esc_html__( 'Secondary menu', THEME_DOMAIN ),
 			)
 		);
 		add_theme_support(

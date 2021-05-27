@@ -14,7 +14,7 @@
 function sovetit_get_theme_text_default( $name ) {
 	switch ( $name ) {
 		case 'home_text_button' :
-			$default = 'Designed to be timeless';
+			$default = esc_html__('Designed to be timeless', THEME_DOMAIN );
 			break;
 		default : $default = null;
 	}
@@ -265,26 +265,26 @@ function sovetit_get_post_time( $get_post_time ) {
 	$ndate_time 	= date('H:i', $get_post_time );
 	$ndate_exp 		= explode('.', $ndate);
 	$nmonth = [
-		1 => 'янв',
-		2 => 'фев',
-		3 => 'мар',
-		4 => 'апр',
-		5 => 'мая',
-		6 => 'июн',
-		7 => 'июл',
-		8 => 'авг',
-		9 => 'сен',
-		10 => 'окт',
-		11 => 'ноя',
-		12 => 'дек'
+		1 => 	esc_html__( 'jan', THEME_DOMAIN ),	// янв
+		2 => 	esc_html__( 'feb', THEME_DOMAIN ),	// фев
+		3 => 	esc_html__( 'mar', THEME_DOMAIN ),	// мар
+		4 => 	esc_html__( 'apr', THEME_DOMAIN ),	// апр
+		5 => 	esc_html__( 'may', THEME_DOMAIN ),	// мая
+		6 => 	esc_html__( 'jun', THEME_DOMAIN ),	// июн
+		7 => 	esc_html__( 'jul', THEME_DOMAIN ),	// июл
+		8 => 	esc_html__( 'aug', THEME_DOMAIN ),	// авг
+		9 => 	esc_html__( 'sep', THEME_DOMAIN ),	// сен
+		10 => 	esc_html__( 'oct', THEME_DOMAIN ),	// окт
+		11 => 	esc_html__( 'nov', THEME_DOMAIN ),	// ноя
+		12 => 	esc_html__( 'dec', THEME_DOMAIN )	// дек
 	];
-	$nmonth_name = null;
+	$nmonth_name = '';
 	foreach ( $nmonth as $key => $value ) {
 		if( $key == intval( $ndate_exp[1] ) ) $nmonth_name = $value;
 	}
 	if( $ndate == date( 'd.m.Y' ) )
-		echo __( 'Today', THEME_DOMAIN ) . ', '.$ndate_time;
+		echo esc_html__( 'Today', THEME_DOMAIN ) . ', '.$ndate_time;
 	elseif( $ndate == date( 'd.m.Y', strtotime( '-1 day' ) ) )
-		echo __( 'Yesterday', THEME_DOMAIN ) . ', '.$ndate_time;
+		echo esc_html__( 'Yesterday', THEME_DOMAIN ) . ', '.$ndate_time;
 	else echo $ndate_exp[0].' '.$nmonth_name.', '.$ndate_time;
 }

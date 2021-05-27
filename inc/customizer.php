@@ -29,7 +29,7 @@ function sovetit_customize_register( $wp_customize ) {
 		$wp_customize->add_section(
 			'settings_header',
 			array(
-				'title' => __( 'Header', THEME_DOMAIN ),
+				'title' => esc_html__( 'Header', THEME_DOMAIN ),
 				'priority' => 80,
 			)
 		);
@@ -40,7 +40,7 @@ function sovetit_customize_register( $wp_customize ) {
 		$wp_customize->add_control(
 			'header-text-button',
 			array(
-				'label' => __( 'Button text', THEME_DOMAIN ),
+				'label' => esc_html__( 'Button text', THEME_DOMAIN ),
 				'section' => 'settings_header',
 				'type' => 'text',
 			)
@@ -50,7 +50,7 @@ function sovetit_customize_register( $wp_customize ) {
 		$wp_customize->add_section(
 			'settings_footer',
 			array(
-				'title' => __( 'Footer', THEME_DOMAIN ),
+				'title' => esc_html__( 'Footer', THEME_DOMAIN ),
 				'priority' => 80,
 			)
 		);
@@ -61,7 +61,7 @@ function sovetit_customize_register( $wp_customize ) {
 		$wp_customize->add_control(
 			'footer-text-button',
 			array(
-				'label' => __( 'Button text', THEME_DOMAIN ),
+				'label' => esc_html__( 'Button text', THEME_DOMAIN ),
 				'section' => 'settings_footer',
 				'type' => 'text',
 			)
