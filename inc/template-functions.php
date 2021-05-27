@@ -246,3 +246,45 @@ function sovetit_get_cf7_list() {
 
 	return $title;
 }
+
+/**
+ * Преобразовываем время в нормальный вид
+ *
+ * @see sovetit_get_post_time
+ *
+ * @param $get_post_time
+ *
+ * @author Pavel Ketov <pavel@sovetit.ru>
+ * @copyright Copyright (c) 2021, SoveTit RU
+ *
+ * @example sovetit_get_post_time( get_post_time() );
+ */
+function sovetit_get_post_time( $get_post_time ) {
+	date_default_timezone_set( 'Europe/Moscow' );
+	$ndate 			= date('d.m.Y', $get_post_time );
+	$ndate_time 	= date('H:i', $get_post_time );
+	$ndate_exp 		= explode('.', $ndate);
+	$nmonth = [
+		1 => 'янв',
+		2 => 'фев',
+		3 => 'мар',
+		4 => 'апр',
+		5 => 'мая',
+		6 => 'июн',
+		7 => 'июл',
+		8 => 'авг',
+		9 => 'сен',
+		10 => 'окт',
+		11 => 'ноя',
+		12 => 'дек'
+	];
+	$nmonth_name = null;
+	foreach ( $nmonth as $key => $value ) {
+		if( $key == intval( $ndate_exp[1] ) ) $nmonth_name = $value;
+	}
+	if( $ndate == date( 'd.m.Y' ) )
+		echo __( 'Today', THEME_DOMAIN ) . ', '.$ndate_time;
+	elseif( $ndate == date( 'd.m.Y', strtotime( '-1 day' ) ) )
+		echo __( 'Yesterday', THEME_DOMAIN ) . ', '.$ndate_time;
+	else echo $ndate_exp[0].' '.$nmonth_name.', '.$ndate_time;
+}
