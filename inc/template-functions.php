@@ -192,60 +192,28 @@ if ( ! function_exists( 'wp_body_open' ) ) {
 }
 
 /**
- * Получаем массив (список созданных форм Contact Form 7)
- *
- * @see sovetit_get_cf7_list
- * @return array|bool
- * @copyright Copyright (c) 2021, SoveTit RU
- * Date: 26.05.2021
+ * Register widget area.
+ * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
+ * @see sovetit_widgets_init
  * @author Pavel Ketov <pavel@sovetit.ru>
+ * @copyright Copyright (c) 2021, SoveTit RU
+ * Date: 16.05.2021
  */
-function sovetit_get_cf7_list() {
+function sovetit_widgets_init() {
 
-	$wpcf7 = get_posts([
-		'post_type'         => 'wpcf7_contact_form',
-		'posts_per_page'	=> -1,
-		'orderby'           => 'ID',
-		'order'             => 'ASC',
-	]);
-
-	if ( empty( $wpcf7 ) ) return false;
-
-	$title = [ 0 => __( '&mdash; Select &mdash;' ) ];
-
-	foreach ( $wpcf7 as $item ) {
-
-		unset(
-			$item->post_author,
-			$item->post_date,
-			$item->post_date_gmt,
-			$item->post_content,
-			$item->post_excerpt,
-			$item->post_status,
-			$item->comment_status,
-			$item->ping_status,
-			$item->post_password,
-			$item->post_name,
-			$item->to_ping,
-			$item->pinged,
-			$item->post_modified,
-			$item->post_modified_gmt,
-			$item->post_content_filtered,
-			$item->post_parent,
-			$item->guid,
-			$item->menu_order,
-			$item->post_type,
-			$item->post_mime_type,
-			$item->comment_count,
-			$item->filter,
-		);
-
-		$title[$item->ID] .= $item->post_title;
-
-	}
-
-	return $title;
+	register_sidebar(
+		[
+			'name'          => esc_html__( 'Footer', THEME_DOMAIN ),
+			'id'            => 'sidebar-1',
+			'description'   => esc_html__( 'Add widgets here to appear in your footer.', THEME_DOMAIN ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		]
+	);
 }
+add_action( 'widgets_init', 'sovetit_widgets_init' );
 
 /**
  * Преобразовываем время в нормальный вид

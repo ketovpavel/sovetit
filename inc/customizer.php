@@ -25,6 +25,15 @@ function sovetit_customize_register( $wp_customize ) {
 			'render_callback' => 'sovetit_customize_footer_text_button',
 		) );
 
+		/** Example function sovetit_choices_post_type */
+		$choices_post_type = sovetit_choices_post_type( 'post' ); // Записи или для CF7 'wpcf7_contact_form'
+		if ( $choices_post_type ) {
+			$wp_customize->selective_refresh->add_partial( 'footer_example_post', array(
+				'selector'        => '#footer_example_post',
+				'render_callback' => 'sovetit_customize_footer_example_post',
+			) );
+		}
+
 		/* Settings Header */
 		$wp_customize->add_section(
 			'settings_header',
@@ -67,6 +76,19 @@ function sovetit_customize_register( $wp_customize ) {
 			)
 		);
 
+		/** Example function sovetit_choices_post_type */
+		if ( $choices_post_type ) {
+			$wp_customize->add_setting('footer_example_post', [ 'default' => 0 ] );
+			$wp_customize->add_control(
+				'footer_example_post', [
+					'label' => esc_html__( 'Example post', THEME_DOMAIN ),
+					'section' => 'settings_footer',
+					'type'    => 'select',
+					'choices' => $choices_post_type,
+				]
+			);
+		}
+
 	}
 }
 add_action( 'customize_register', 'sovetit_customize_register' );
@@ -76,4 +98,9 @@ function sovetit_customize_header_text_button() {
 }
 function sovetit_customize_footer_text_button() {
 	return get_theme_mod('footer_text_button');
+}
+
+/** Example function sovetit_choices_post_type */
+function sovetit_customize_footer_example_post() {
+	return get_theme_mod('footer_example_post');
 }
