@@ -1,0 +1,36 @@
+.spacer {
+	$p: '%';
+	&-h {
+		@for $i from 1 through $spacer-h {
+			&-#{$i} {
+				width: 100%;
+				height: #{$i}px;
+			}
+		}
+		
+		&-p {
+			@for $i from 1 through $spacer-h-p {
+				&-#{$i} {
+					width: 100%;
+					height: #{$i}#{$p};
+				}
+			}
+		}
+	}
+	&-w {
+		@for $i from 1 through $spacer-w {
+			&-#{$i} {
+				width: #{$i}px;
+				height: auto;
+			}
+		}
+		&-p {
+			@for $i from 1 through $spacer-w-p {
+				&-#{$i} {
+					width: #{$i}#{$p};
+					height: auto;
+				}
+			}
+		}
+	}
+}
