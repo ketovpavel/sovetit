@@ -1,4 +1,6 @@
 .spacer {
+	display: flex;
+	margin: 0 auto;
 	$p: '%';
 	&-h {
 		@for $i from 1 through $spacer-h {
