@@ -302,6 +302,18 @@ function sovetit_remove_requests_field( $field ) {
 }
 
 /**
+ * Is class SoveTit_Admin_Notices compatibility file
+ * Раскомментировать, если нужна дополнительная проверка полей в админке
+ * Uncomment if you need additional check of fields in the admin panel
+ */
+//if ( is_admin() ) {
+//	require_once THEME_DIR . '/inc/classes/SoveTit_Admin_Notices.php';
+//	if ( class_exists( 'SoveTit_Admin_Notices' ) ) {
+//		new SoveTit_Admin_Notices();
+//	}
+//}
+
+/**
  * Displaying an array in a readable form
  *
  * @see pre
