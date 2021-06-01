@@ -1,7 +1,6 @@
 <?php
 /**
  * Дополнительная проверка полей в админке
- * Additional check of fields in the admin panel
  *
  * Class SoveTit_Admin_Notices
  *
@@ -60,10 +59,14 @@ class SoveTit_Admin_Notices {
 	 */
 	public function admin_notices() {
 
-		$field = $_GET['sv-field'];
-
-		if ( ! isset( $field ) ) {
+		if ( ! isset( $_GET['sv-field'] ) ) {
 			return;
+		} else {
+			/**
+			 * Очищаем строку
+			 * @var $field
+			 */
+			$field = sanitize_text_field( $_GET['sv-field'] );
 		}
 
 		switch ( $field ) {
