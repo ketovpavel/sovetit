@@ -135,7 +135,7 @@ function sovetit_load_classes( $class_name = [], $widget = false ) {
 
 	if ( $widget ) {
 		foreach ( $class_name as $class ) {
-			include THEME_DIR . "/vendor/php/classes/widgets/{$class}.php";
+			include THEME_DIR . "/inc/classes/widgets/{$class}.php";
 			if ( class_exists( $class ) ) {
 				register_widget( $class );
 			} else {
@@ -144,7 +144,7 @@ function sovetit_load_classes( $class_name = [], $widget = false ) {
 		}
 	} else {
 		foreach ( $class_name as $class ) {
-			include THEME_DIR . "/vendor/php/classes/{$class}.php";
+			include THEME_DIR . "/inc/classes/{$class}.php";
 			if ( class_exists( $class ) ) {
 				new $class;
 			} else {
