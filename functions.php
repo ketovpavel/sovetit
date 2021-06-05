@@ -89,9 +89,70 @@ if ( ! function_exists( 'sovetit_setup' ) ) {
 			}
 		}
 		add_action( 'carbon_fields_register_fields', 'sovetit_register_fields', 1 );
+
+		/**
+		 * Load theme classes
+		 */
+		sovetit_load_classes([
+			/**
+			 * Is class SoveTit_Admin_Notices compatibility file
+			 * Раскомментировать, если нужна дополнительная проверка полей в админке
+			 * Uncomment if you need additional check of fields in the admin panel
+			 */
+			//'SoveTit_Admin_Notices',
+		]);
 	}
 }
 add_action( 'after_setup_theme', 'sovetit_setup' );
+
+
+/**
+ * Load theme classes
+ *
+ * @see sovetit_load_classes
+ *
+ * @param array $class_name
+ * @param bool  $widget
+ *
+ * @author Pavel Ketov <pavel@sovetit.ru>
+ * @copyright Copyright (c) 2021, SoveTit RU
+ */
+function sovetit_load_classes( $class_name = [], $widget = false ) {
+
+	if ( ! is_array( $class_name ) ) {
+
+		$title_arr 	= '<h1>' . esc_html__( "Function error: ", THEME_DOMAIN ) . '<small>' . __FUNCTION__ . '()</small></h1>';
+		$mess_arr = $title_arr . '<br>' . sprintf(
+				__( '<h3>A correct example of passing parameters to a function:</h3><code>%s</code><p>It turns out that you need to pass it as an array <b>;)</b></p>', THEME_DOMAIN ),
+				__FUNCTION__ . "( array( '" . $class_name . "', 'SoveTit_Admin_Notices', 'My_Class' ) )",
+			);
+
+		wp_die( $mess_arr, $title_arr );
+	}
+
+	$title 	= esc_html__( "No class: ", THEME_DOMAIN );
+	$mess 	= esc_html__( "Failed to load class: ", THEME_DOMAIN );
+
+	if ( $widget ) {
+		foreach ( $class_name as $class ) {
+			include THEME_DIR . "/vendor/php/classes/widgets/{$class}.php";
+			if ( class_exists( $class ) ) {
+				register_widget( $class );
+			} else {
+				wp_die( $mess . $class, $title . $class );
+			}
+		}
+	} else {
+		foreach ( $class_name as $class ) {
+			include THEME_DIR . "/vendor/php/classes/{$class}.php";
+			if ( class_exists( $class ) ) {
+				new $class;
+			} else {
+				wp_die( $mess . $class, $title . $class );
+			}
+		}
+	}
+}
 
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
@@ -300,18 +361,6 @@ function sovetit_remove_requests_field( $field ) {
 	);
 	return $field;
 }
-
-/**
- * Is class SoveTit_Admin_Notices compatibility file
- * Раскомментировать, если нужна дополнительная проверка полей в админке
- * Uncomment if you need additional check of fields in the admin panel
- */
-//if ( is_admin() ) {
-//	require_once THEME_DIR . '/inc/classes/SoveTit_Admin_Notices.php';
-//	if ( class_exists( 'SoveTit_Admin_Notices' ) ) {
-//		new SoveTit_Admin_Notices();
-//	}
-//}
 
 /**
  * Displaying an array in a readable form
