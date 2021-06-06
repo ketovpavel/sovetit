@@ -363,6 +363,37 @@ function sovetit_remove_requests_field( $field ) {
 }
 
 /**
+ * Количество записей
+ *
+ * @see sovetit_posts_count
+ *
+ * @param array $args
+ *
+ * @return int
+ * @author Pavel Ketov <pavel@sovetit.ru>
+ * @copyright Copyright (c) 2021, SoveTit RU
+ */
+function sovetit_posts_count( $args = [] ) {
+
+	$posts = get_posts( array_merge(
+		$args,
+		[ 'posts_per_page'  => -1 ]
+	));
+
+	foreach ( $posts as $filed ) {
+		sovetit_remove_requests_field( $filed );
+		unset( $filed->post_title, $filed->post_parent );
+	}
+
+	$count = count( $posts );
+
+	if ( $count < 1 ) return 0;
+
+	return $count;
+
+}
+
+/**
  * Displaying an array in a readable form
  *
  * @see pre
