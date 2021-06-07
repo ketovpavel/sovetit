@@ -217,6 +217,7 @@ add_action( 'widgets_init', 'sovetit_widgets_init' );
 
 /**
  * Преобразовываем время в нормальный вид
+ * @link https://www.timeserver.ru/cities/ru/moscow
  *
  * @see sovetit_get_post_time
  *
@@ -229,6 +230,9 @@ add_action( 'widgets_init', 'sovetit_widgets_init' );
  */
 function sovetit_get_post_time( $get_post_time ) {
 	date_default_timezone_set( 'Europe/Moscow' );
+	if ( empty( $get_post_time ) ) {
+		$get_post_time = get_post_time( 'U', 'gmt' );
+	}
 	$ndate 			= date('d.m.Y', $get_post_time );
 	$ndate_time 	= date('H:i', $get_post_time );
 	$ndate_exp 		= explode('.', $ndate);
